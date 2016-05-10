@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
+  scope :api, :defaults => {:format => :json} do
+    match 'game', to:            'game#create', via: [ :post, :options]
+    get 'game/:id', to:         'game#show'
+    post 'game/:id', to:        'game#update'
+    get 'game/:id/ai_move', to: 'game#ai_move'
+  end
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
@@ -25,6 +32,8 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+
+
 
   # Example resource route with sub-resources:
   #   resources :products do

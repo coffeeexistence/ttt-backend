@@ -8,6 +8,15 @@ Bundler.require(*Rails.groups)
 
 module TttBackend
   class Application < Rails::Application
+
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => 'http://localhost:8000',
+      'Access-Control-Request-Method' => 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Methods' => 'POST, GET, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers' => 'Origin, Content-Type, Accept, Authorization, Token',
+      'Access-Control-Allow-Credentials' => 'true',
+      'Access-Control-Max-Age' => "1728000"
+    }
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
