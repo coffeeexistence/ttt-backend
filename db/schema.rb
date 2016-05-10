@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 20160510025927) do
 
   create_table "game_sessions", force: :cascade do |t|
     t.text     "board_state",   default: "         "
-    t.string   "p1_token"
-    t.string   "ai_token"
-    t.integer  "ai_difficulty"
+    t.string   "p1_token",      default: "X"
+    t.string   "ai_token",      default: "O"
+    t.integer  "ai_difficulty", default: 3
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
