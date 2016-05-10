@@ -22,6 +22,11 @@ class Board
     self.cells = game_session.board_state.split('')
   end
 
+  def persist
+    self.game_session.board_state = self.cells.join('')
+    self.game_session.save
+  end
+
 	def position(user_input_string)
 		cells[user_input_string.chomp.to_i - 1] # user is entering 1-9.  posiitons are 0-8
 	end
@@ -81,5 +86,7 @@ class Board
     @cells[position.to_i-1]=token
     #puts "Updated @cells to =     #{@cells}"
   end
+
+
 
 end
