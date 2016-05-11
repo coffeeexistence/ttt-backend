@@ -30,10 +30,11 @@ class AI
     #  simulate execution of each possible move of current_player
     move_optimality_arr=[]
     #raise 'stop here'
-    possible_moves_board_array.each{|board| move_optimality_arr << ai(board, depth, false) }
+    possible_moves_board_array.each{|board| move_optimality_arr << ai(board, depth, depth, false) }
     #puts move_optimality_arr.to_s
 
     best_option = index_of_max(move_optimality_arr)
+    puts move_optimality_arr
     possible_moves[best_option]
   end
 
@@ -42,13 +43,22 @@ class AI
     arr.find_index(value)
   end
 
-  def ai(cpu_board, depth, cpus_turn=true) #warning: recursion may occur :P -  https://youtu.be/Mv9NEXX1VHc
+  def ai(cpu_board, depth, initial_depth, cpus_turn=true) #warning: recursion may occur :P -  https://youtu.be/Mv9NEXX1VHc
     optimality=50
     token=""
     cpus_turn ? token=@token : token=opponent_token
     #  return optimality for following values for potential cases:
-    return 100 if cpu_board.winner==@token
-    return 0 if cpu_board.winner==opponent_token
+    # puts "#{@token} - #{opponent_token}"
+    if cpu_board.winner==@token
+      if depth == initial_depth
+        return 500
+        puts "Immediate win"
+      end
+      return 100
+
+    end
+
+    return -50 if cpu_board.winner==opponent_token
     return 25 if cpu_board.draw?
     #return default value if a draw
     return optimality if depth<=0
@@ -57,10 +67,18 @@ class AI
     #puts "got here"
     #puts "#{moves_array.to_s} - possible_moves"
     #  simulate execution of each possible move of current_player
-    sub_moves = moves_array.map{|board| ai(board, depth-1, !cpus_turn)}
+    sub_moves = moves_array.map{|board| ai(board, depth-1, initial_depth, !cpus_turn)}
     sub_moves_sum = array_sum(sub_moves)
-    return (optimality+sub_moves_sum)/2
 
+    long_term_optimality = (sub_moves_sum)/sub_moves.length
+    pragmatic_optimality = long_term_optimality*depth
+
+    puts "This possibility has a long term optimality of #{long_term_optimality}"
+    puts "However, when looking at this pragmatically, It's optimality is #{pragmatic_optimality}"
+    puts "sub_moves_sum: #{sub_moves_sum}, moves_array length: #{moves_array.length}"
+    puts "--"
+
+    return long_term_optimality
   end
 
   def array_sum(array)
