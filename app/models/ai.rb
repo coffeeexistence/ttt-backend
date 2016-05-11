@@ -71,12 +71,6 @@ class AI
     sub_moves_sum = array_sum(sub_moves)
 
     long_term_optimality = (sub_moves_sum)/sub_moves.length
-    pragmatic_optimality = long_term_optimality*depth
-
-    puts "This possibility has a long term optimality of #{long_term_optimality}"
-    puts "However, when looking at this pragmatically, It's optimality is #{pragmatic_optimality}"
-    puts "sub_moves_sum: #{sub_moves_sum}, moves_array length: #{moves_array.length}"
-    puts "--"
 
     return long_term_optimality
   end
