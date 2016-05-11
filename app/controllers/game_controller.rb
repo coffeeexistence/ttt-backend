@@ -20,6 +20,7 @@ class GameController < ApplicationController
     #byebug
     game_session = GameSession.find(params[:id])
     game_session.board_state = game_session_params[:board_state]
+    game_session.save
     render json: {game_session: game_session}
   end
 
