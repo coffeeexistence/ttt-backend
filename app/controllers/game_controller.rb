@@ -8,12 +8,12 @@ class GameController < ApplicationController
 
   def create
     game_session = GameSession.create(game_session_params)
-    render json: {game_session: game_session}
+    render json: {game_session: game_session, game_data: game_session.game_data}
   end
 
   def show
     game_session = GameSession.find(params[:id])
-    render json: {game_session: game_session}
+    render json: {game_session: game_session, game_data: game_session.game_data}
   end
 
   def update
@@ -21,7 +21,7 @@ class GameController < ApplicationController
     game_session = GameSession.find(params[:id])
     game_session.board_state = game_session_params[:board_state]
     game_session.save
-    render json: {game_session: game_session}
+    render json: {game_session: game_session, game_data: game_session.game_data}
   end
 
   def ai_move
@@ -31,7 +31,7 @@ class GameController < ApplicationController
     ai_move = hal.move
     board.update_by_token(ai_move, game_session.ai_token)
     board.persist
-    render json: {game_session: game_session, ai_move: ai_move}
+    render json: {game_session: game_session, ai_move: ai_move, game_data: game_session.game_data}
   end
 
   def game_session_params

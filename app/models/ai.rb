@@ -8,7 +8,6 @@ class AI
 
   def move
     move = optimal_move
-    puts "CPU #{@token} selected position #{move}"
     move
 	end
 
@@ -19,7 +18,6 @@ class AI
   def optimal_move
     cpu_board = HypotheticalBoard.new(self.main_board.cells)
     results = ai_starter(cpu_board, self.difficulty)
-    puts results.to_s
     results
   end
 
@@ -34,7 +32,6 @@ class AI
     #puts move_optimality_arr.to_s
 
     best_option = index_of_max(move_optimality_arr)
-    puts move_optimality_arr
     possible_moves[best_option]
   end
 
@@ -52,7 +49,7 @@ class AI
     if cpu_board.winner==@token
       if depth == initial_depth
         return 500
-        puts "Immediate win"
+        #puts "Immediate win"
       end
       return 100
 
