@@ -10,7 +10,7 @@ module TttBackend
   class Application < Rails::Application
 
     config.action_dispatch.default_headers = {
-      'Access-Control-Allow-Origin' => 'http://localhost:8000',
+      'Access-Control-Allow-Origin' => 'http://johnanthony-dev.com/',
       'Access-Control-Request-Method' => 'GET, POST, OPTIONS',
       'Access-Control-Allow-Methods' => 'POST, GET, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers' => 'Origin, Content-Type, Accept, Authorization, Token',
