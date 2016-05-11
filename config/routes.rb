@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   scope :api, :defaults => {:format => :json} do
     match 'game', to:            'game#create', via: [ :post, :options]
     get 'game/:id', to:         'game#show'
-    post 'game/:id', to:        'game#update'
+    match 'game/:id', to:        'game#update', via: [ :post, :options]
     get 'game/:id/ai_move', to: 'game#ai_move'
   end
 
