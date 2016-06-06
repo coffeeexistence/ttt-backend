@@ -27,11 +27,13 @@ class GameController < ApplicationController
   def ai_move
     game_session = GameSession.find(params[:id])
     board = Board.new(game_session)
-    hal = AI.new(board)
-    ai_move = hal.move
-    board.update_by_token(ai_move, game_session.ai_token)
-    board.persist
-    render json: {game_session: game_session, ai_move: ai_move, game_data: game_session.game_data}
+    if !board.over?
+      hal = AI.new(board)
+      ai_move = hal.move
+      board.update_by_token(ai_move, game_session.ai_token)
+      board.persist
+    end 
+    render json: {game_session: game_session, game_data: game_session.game_data}
   end
 
   def game_session_params
